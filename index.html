@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Parser Interface</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url("bg.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .container {
+      margin-top: 20px;
+    }
+    .h2
+    {
+      color: #eee;
+    }
+
+    .table {
+      margin-top: 20px;
+    }
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 6px solid #3498db;
+      width: 60px;
+      height: 60px;
+      animation: spin 2s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -30px;
+      margin-top: -30px;
+      display: none; /* Hidden by default */
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    #status, #fileDisplayArea {
+      margin-top: 10px;
+      color: #555;
+    }
+    .file-list {
+      list-style: none;
+      padding: 0;
+    }
+    .file-list li {
+      padding: 5px;
+      background-color: #eee;
+      border: 1px solid #ddd;
+      margin-top: 5px;
+    }
+    .download-button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: none;
+      margin: 10px;
+      margin-left: 0%;
+    }
+    .download-button:hover {
+      background-color: #45a049;
+    }
+    .h2
+    {
+      color: #ddd;
+    }
+  </style>
+</head>
+
+<body>
+
+  
+
+  <section id="header">
+    <a href="#"><img src="img/logo.png" class="logo" alt=""></a>
+
+    <div>
+      <ul id="navbar">
+        <a href="#" id="close"><i class='fa fa-close'></i></a>
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login/Singup</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="container">
+    <h2 class="h2">RESUME PARSER</h2>
+    <div class="custom-file mt-3">
+      <input type="file" class="custom-file-input" id="fileInput" multiple>
+      <label class="custom-file-label" for="fileInput">Choose file</label>
+    </div>
+    <ul id="fileDisplayArea" class="file-list mt-3"></ul>
+    <button class="btn btn-primary mt-3" onclick="parseFiles()">Parse Files</button>
+    <button class="download-button" onclick="downloadExcel()">Download Excel</button>
+    <div id="spreadsheet"></div>
+    <div class="loader" id="loader"></div>
+    <div id="status"></div>
+  </div>
+    
+  <section id="newsletter" class="section-p1 section-m1">
+    <div class="newstext">
+        <h4>Sign uP for newsletters</h4>
+        <p>Lorem ipsum dolor sit amet <span>consectetur</span>.</p>
+    </div>
+    <div class="form">
+        <input type="text" placeholder="your email address">
+        <button class="normal">Sign Up</button>
+    </div>
+</section>
+
+  <footer class="section-p1">
+    <div class="col">
+      <img class="logo" src="logo.png" alt="">
+      <h4>Contact</h4>
+      <p><strong>Address :</strong> Lorem ipsum dolor sit</p>
+      <p><strong>Phone :</strong> 13569876540</p>
+      <p><strong>Hours :</strong> 5hoai</p>
+      <div class="follow">
+        <h4>Follow Us</h4>
+        <div class="icon">
+          <i class="fab fa-facebook-f"></i>
+          <i class="fab fa-twitter"></i>
+          <i class="fab fa-instagram"></i>
+          <i class="fab fa-pinterest-p"></i>
+          <i class="fab fa-youtube"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <h4>About</h4>
+      <a href="#">About US</a>
+      <a href="#">Delivery Information</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms & Conditions</a>
+      <a href="#">Contact Us</a>
+      <a href="#">About US</a>
+    </div>
+
+    <div class="col">
+      <h4>MY Account</h4>
+      <a href="#">Sign In</a>
+      <a href="#">View Cart</a>
+      <a href="#">My Wishlist</a>
+      <a href="#">Track My Order</a>
+      <a href="#">Help</a>
+    </div>
+
+
+    <div class="col install">
+      <h4>Install App</h4>
+      <p>From app store or Google PLay Store</p>
+      <div class="row">
+        <img src="app.jpg" alt="">
+        <img src="play.jpg" alt="">
+      </div>
+      <p>Secured payment Gateways</p>
+      <img src="pay.png" alt="">
+    </div>
+
+    <div class="copyright">
+    </div>
+    <div class="button-container">
+      <a href="#">
+        <button> class="circular-button" href="#">
+          <span class="arrow-up"></span>
+        </button>
+
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const hotElement = document.querySelector('#spreadsheet');
+      const loader = document.getElementById('loader');
+      const statusText = document.getElementById('status');
+      const fileDisplayArea = document.getElementById('fileDisplayArea');
+      const downloadButton = document.querySelector('.download-button');
+  
+      document.getElementById('fileInput').addEventListener('change', function (e) {
+          const fileList = e.target.files;
+          fileDisplayArea.innerHTML = '';
+          Array.from(fileList).forEach((file, index) => {
+              const fileItem = document.createElement('li');
+              fileItem.textContent = file.name;
+              fileItem.id = 'file-status-' + index;
+              fileDisplayArea.appendChild(fileItem);
+          });
+          downloadButton.style.display = 'none'; // Initially hide the download button
+      });
+  
+      window.parseFiles = function () {
+          const input = document.getElementById('fileInput');
+          const files = input.files;
+          if (files.length === 0) {
+              alert('Please select at least one file.');
+              return;
+          }
+          loader.style.display = 'block'; // Show the loader
+          let parsedCount = 0;
+          const allData = [];
+  
+          // Clear existing Handsontable instance and table elements
+          if (window.hot) {
+              window.hot.destroy();
+              hotElement.innerHTML = '';
+          }
+  
+          // Clear status text
+          statusText.innerHTML = '';
+  
+          Array.from(files).forEach((file, index) => {
+              const formData = new FormData();
+              formData.append('files', file);
+  
+              fetch('http://127.0.0.1:5000/parse', {
+                  method: 'POST',
+                  body: formData
+              }).then(response => response.json())
+              .then(data => {
+                  const fileItem = document.getElementById('file-status-' + index);
+                  fileItem.textContent += ' ✔️'; // Update with a tick mark
+                  allData.push(...data);
+  
+                  parsedCount++;
+                  if (parsedCount === files.length) {
+                      finalizeProcessing(allData);
+                  }
+              }).catch(error => {
+                  console.error('Error:', error);
+                  const fileItem = document.getElementById('file-status-' + index);
+                  fileItem.textContent += ' ❌'; // Update with an error mark
+                  loader.style.display = 'none'; // Hide the loader if an error occurs
+                  statusText.innerHTML = `Error parsing files: please only upload docx and pdf files.`;
+              });
+          });
+      };
+  
+      function finalizeProcessing(data) {
+          loader.style.display = 'none'; // Hide the loader
+          statusText.innerHTML = `Parsed ${data.length} files.`;
+          downloadButton.style.display = 'block'; // Show the download button
+          initializeHandsontable(data);
+      }
+  
+      function initializeHandsontable(data) {
+          const columns = [{data: 'filename', type: 'text', title: 'Filename'}].concat(
+              Object.keys(data.reduce((acc, item) => Object.assign(acc, item), {}))
+              .filter(key => key !== 'filename')
+              .map(key => ({data: key, type: 'text', title: key}))
+          );
+  
+          window.hot = new Handsontable(hotElement, {
+              data: data,
+              columns: columns,
+              rowHeaders: false,
+              colHeaders: columns.map(col => col.title),
+              licenseKey: 'non-commercial-and-evaluation',
+              stretchH: 'all',
+              width: '100%',
+              autoWrapRow: true,
+              autoWrapcolumns: true,
+              minRows: data.length,
+              height: 'auto',
+              manualRowResize: true,
+              manualColumnResize: true
+          });
+      }
+  
+      window.downloadExcel = function () {
+          const wb = XLSX.utils.table_to_book(document.getElementById('spreadsheet'), {
+              sheet: "Sheet1",
+              raw: true  // This ensures that numeric data is kept as numbers in the output
+          });
+          const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+          function s2ab(s) {
+              const buffer = new ArrayBuffer(s.length);
+              const view = new Uint8Array(buffer);
+              for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+              return buffer;
+          }
+          saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'ResumeData.xlsx');
+      };
+  });
+  
+  
+  
+</script>
+
+
+</body>
+</html>
